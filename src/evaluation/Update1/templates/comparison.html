@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Comparison - NeuroVision Analytics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00f7ff;
+            --accent-color: #ff0af3;
+            --bg-gradient: linear-gradient(45deg, #0a0a2e, #1a1a4a);
+        }
+        
+        body {
+            background: var(--bg-gradient);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 1.5rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-text {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 46, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: -1;
+        }
+
+        .footer-text {
+            color: var(--primary-color);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(0, 247, 255, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(0, 247, 255, 0.6);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(0, 247, 255, 0.8),
+                             0 0 30px rgba(255, 10, 243, 0.6);
+            }
+        }
+        .visualization-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .visualization-container:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 15px rgba(0, 247, 255, 0.4);
+            position: relative;
+            padding-left: 40px;
+        }
+
+        h2::before {
+            content: "\2017";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-size: 2rem;
+            top: -10px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+        }
+
+        button {
+            margin-top: 1.5rem;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button:hover {
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .analysis-result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 8px;
+            animation: fadeIn 0.5s ease;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .fa-spinner {
+            margin-right: 8px;
+        }
+
+        .nav-link {
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-link.active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .comparison-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .model-label {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="container-fluid">
+    <nav class="navbar navbar-dark bg-dark-blue mb-4 py-3">
+        <div class="container">
+            <a class="navbar-brand fs-3 fw-bold" href="#">
+                <i class="fa-solid fa-brain-circuit me-2"></i>
+                NeuroVision Analytics
+            </a>
+            <div class="navbar-nav flex-row gap-3">
+                <a class="nav-link" href="/model1">Model 1</a>
+                <a class="nav-link" href="/model2">Model 2</a>
+                <a class="nav-link active" href="/comparison">Comparison</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="comparison-title mb-5">Model Comparison Analysis</h1>
+        
+        <div class="row g-4">
+            <!-- Feature Correlation Comparison -->
+            <div class="col-12 mb-5">
+                <h2 class="text-center mb-4">Feature Correlation Comparison</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="model-label">Model 1 Correlation</div>
+                        <img src="{{ url_for('static', filename='feature_heatmap.png') }}" 
+                             class="img-fluid rounded-3" alt="Model 1 Correlation">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="model-label">Model 2 Correlation</div>
+                        <img src="{{ url_for('static', filename='feature_heatmap.png') }}" 
+                             class="img-fluid rounded-3" alt="Model 2 Correlation">
+                    </div>
+                </div>
+                <button onclick="analyzeVisualization('correlation_comparison', this)" 
+                        class="btn btn-gradient mt-4 px-4 py-2 mx-auto d-block">
+                    <i class="fa-solid fa-code-compare"></i>
+                    Compare Correlations
+                </button>
+                <div id="correlation_comparison-analysis" class="analysis-result"></div>
+            </div>
+
+            <!-- Metrics Comparison -->
+            <div class="col-12 mb-5">
+                <h2 class="text-center mb-4">Performance Metrics Comparison</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="model-label">Model 1 Metrics</div>
+                        <img src="{{ url_for('static', filename='metrics_barplot.png') }}" 
+                             class="img-fluid rounded-3" alt="Model 1 Metrics">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="model-label">Model 2 Metrics</div>
+                        <img src="{{ url_for('static', filename='metrics_barplot.png') }}" 
+                             class="img-fluid rounded-3" alt="Model 2 Metrics">
+                    </div>
+                </div>
+                <button onclick="analyzeVisualization('metrics_comparison', this)" 
+                        class="btn btn-gradient mt-4 px-4 py-2 mx-auto d-block">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Compare Metrics
+                </button>
+                <div id="metrics_comparison-analysis" class="analysis-result"></div>
+            </div>
+
+            <!-- ROC Curve Comparison -->
+            <div class="col-12 mb-5">
+                <h2 class="text-center mb-4">ROC Curve Comparison</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="model-label">Model 1 ROC</div>
+                        <img src="{{ url_for('static', filename='roc_curve.png') }}" 
+                             class="img-fluid rounded-3" alt="Model 1 ROC">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="model-label">Model 2 ROC</div>
+                        <img src="{{ url_for('static', filename='roc_curve.png') }}" 
+                             class="img-fluid rounded-3" alt="Model 2 ROC">
+                    </div>
+                </div>
+                <button onclick="analyzeVisualization('roc_comparison', this)" 
+                        class="btn btn-gradient mt-4 px-4 py-2 mx-auto d-block">
+                    <i class="fa-solid fa-chart-area"></i>
+                    Compare ROC Curves
+                </button>
+                <div id="roc_comparison-analysis" class="analysis-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const modelMetrics = {
+            model1: {
+                accuracy: {{ model_comparison.Classification.accuracy|tojson }},
+                roc_auc: {{ model_comparison.Classification.roc_auc|tojson }},
+                params: {{ model_comparison.Classification.params|tojson }}
+            },
+            model2: {
+                mse: {{ model_comparison.Autoencoder.mse|tojson }},
+                mae: {{ model_comparison.Autoencoder.mae|tojson }},
+                params: {{ model_comparison.Autoencoder.params|tojson }}
+            }
+        };
+
+        function analyzeVisualization(type, buttonElement) {
+            const resultDiv = document.getElementById(`${type}-analysis`);
+            const button = buttonElement;
+            
+            button.disabled = true;
+            button.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
+            
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="text-info"><i class="fa-solid fa-robot"></i> Starting AI analysis...</div>';
+
+            fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    visualization_type: type,
+                    model_metrics: modelMetrics
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    resultDiv.innerHTML = `<div class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Error: ${data.error}</div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="text-light">${data.analysis}</div>`;
+                }
+                button.disabled = false;
+                button.innerHTML = `<i class="fa-solid fa-code-compare"></i> Compare Again`;
+            })
+            .catch(error => {
+                resultDiv.innerHTML = `<div class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Error: ${error.message}</div>`;
+                button.disabled = false;
+                button.innerHTML = `<i class="fa-solid fa-code-compare"></i> Retry Comparison`;
+            });
+        }
+    </script>
+</body>
+</html>
+<footer class="footer text-center">
+    <div class="container">
+        <span class="footer-text">Powered by Hades.AI</span>
+    </div>
+</body>
+</html>
