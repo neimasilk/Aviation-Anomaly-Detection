@@ -29,17 +29,38 @@ def main():
     """
     logger.info("Starting Aviation Anomaly Detection System")
     
-    # TODO: Implement data loading from preprocessing module
-    # from preprocessing import data_loader
-    # data = data_loader.load_data()
-    
-    # TODO: Implement model loading/training from models module
-    # from models import anomaly_detector
-    # model = anomaly_detector.load_model() or anomaly_detector.train_model(data)
-    
-    # TODO: Implement anomaly detection and evaluation
-    # from evaluation import evaluator
-    # results = evaluator.evaluate_model(model, test_data)
+    try:
+        # Load and preprocess data
+        from models.Model_Autoencoder import AutoencoderAnomalyDetector
+        import pandas as pd
+        
+        # Load data
+        data_path = 'e:/Kuliah/PKL LabDataScience/Aviation-Anomaly-Detection/data/processed/cleaned_data.csv'
+        df = pd.read_csv(data_path)
+        features = df.select_dtypes(include=['float64', 'int64']).columns
+        X = df[features].values
+        
+        # Initialize model
+        input_dim = X.shape[1]
+        model = AutoencoderAnomalyDetector(input_dim=input_dim)
+        
+        # Split data and train model
+        train_loader, val_loader, test_loader = model.split_data(X)
+        model.train(train_loader, validation_loader=val_loader)
+        
+        # Compute threshold
+        threshold = model.compute_threshold(train_loader)
+        logger.info(f"Anomaly threshold: {threshold:.6f}")
+        
+        # Evaluate model
+        test_loss, accuracy, precision = model.evaluate(test_loader)
+        logger.info(f"Test Loss: {test_loss:.6f}")
+        logger.info(f"Accuracy: {accuracy:.4f}")
+        logger.info(f"Precision: {precision:.4f}")
+        
+    except Exception as e:
+        logger.error(f"Error in main function: {str(e)}")
+        return 1
     
     logger.info("Aviation Anomaly Detection System completed successfully")
     return 0
