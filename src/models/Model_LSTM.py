@@ -33,10 +33,33 @@ def preprocess_data(data, test_size=0.2, time_steps=3):
     # Convert target to binary integers
     y = y.astype(int)
     
+<<<<<<< HEAD
     # Validate binary target values
     unique_classes = np.unique(y)
     if set(unique_classes) != {0, 1}:
         raise ValueError(f"Target must contain binary values (0/1). Found: {unique_classes}")
+=======
+    # Validate target values
+    unique_classes = np.unique(y)
+    print(f"Unique classes in target: {unique_classes}")
+    
+    # Handle single-class dataset (unsupervised anomaly detection)
+    if len(unique_classes) == 1:
+        print("Warning: Only one class found in target. Using unsupervised approach.")
+        print("Generating synthetic anomalies for testing...")
+        
+        # Create synthetic anomalies (5% of data)
+        num_samples = len(X)
+        num_anomalies = int(0.05 * num_samples)
+        
+        # Generate random indices for anomalies
+        anomaly_indices = np.random.choice(num_samples, num_anomalies, replace=False)
+        y_synthetic = np.zeros_like(y)
+        y_synthetic[anomaly_indices] = 1
+        y = y_synthetic
+        
+        print(f"Created {num_anomalies} synthetic anomalies for training")
+>>>>>>> 0ce5588e4ecf19985e585e873bcd5bfafba0c691
 
     # Standardize features
     scaler = StandardScaler()
@@ -55,11 +78,20 @@ def preprocess_data(data, test_size=0.2, time_steps=3):
     
     # Split the data
     X_train, X_test, y_train, y_test = train_test_split(
+<<<<<<< HEAD
         X_reshaped, y_reshaped, test_size=test_size, random_state=42
+=======
+        X_reshaped, y_reshaped, test_size=test_size, random_state=42, stratify=y_reshaped
+>>>>>>> 0ce5588e4ecf19985e585e873bcd5bfafba0c691
     )
     
     print(f"Training set shape: {X_train.shape}")
     print(f"Test set shape: {X_test.shape}")
+<<<<<<< HEAD
+=======
+    print(f"Training set anomalies: {np.sum(y_train == 1)} ({np.mean(y_train == 1)*100:.2f}%)")
+    print(f"Test set anomalies: {np.sum(y_test == 1)} ({np.mean(y_test == 1)*100:.2f}%)")
+>>>>>>> 0ce5588e4ecf19985e585e873bcd5bfafba0c691
     
     return X_train, X_test, y_train, y_test, scaler
 
@@ -170,7 +202,15 @@ def find_optimal_threshold(model, X_test, y_test, thresholds=np.arange(0.1, 0.9,
     return best_threshold
 
 # Save the model
+<<<<<<< HEAD
 def save_model(model, model_path='../../models/lstm_anomaly_detector.h5'):
+=======
+def save_model(model, model_path='e:/Kuliah/PKL LabDataScience/Aviation-Anomaly-Detection/data/model-output/lstm_anomaly_detector.h5'):
+    # Create directory if it doesn't exist
+    import os
+    os.makedirs(os.path.dirname(model_path), exist_ok=True)
+    
+>>>>>>> 0ce5588e4ecf19985e585e873bcd5bfafba0c691
     model.save(model_path)
     print(f"Model saved to {model_path}")
 
@@ -191,6 +231,13 @@ def main():
     print("Training model...")
     history = train_model(model, X_train, y_train, X_test, y_test, epochs=20, batch_size=16)
     
+<<<<<<< HEAD
+=======
+    # Save the trained model
+    print("Saving model...")
+    save_model(model)
+    
+>>>>>>> 0ce5588e4ecf19985e585e873bcd5bfafba0c691
     # Plot training history
     plt.figure(figsize=(12, 5))
     

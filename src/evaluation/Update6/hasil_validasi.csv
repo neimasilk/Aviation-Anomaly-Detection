@@ -1,0 +1,17 @@
+Jenis_Validasi,fold,accuracy,precision,recall,f1,processing_time,prediction
+
+# Cross Validation
+Cross Validation,1,0.8088,0.0000,0.0000,0.0000,,
+Cross Validation,2,0.8235,0.0000,0.0000,0.0000,,
+Cross Validation,3,0.8333,0.0000,0.0000,0.0000,,
+Cross Validation,4,0.8137,0.0000,0.0000,0.0000,,
+Cross Validation,5,0.8621,0.0000,0.0000,0.0000,,
+
+# Rata-rata Cross Validation
+Cross Validation (Rata-rata),Rata-rata,0.8283,0.0000,0.0000,0.0000,,
+
+# Validasi Offline
+Validasi Offline,Offline,0.8263,0.0000,0.0000,0.0000,,
+
+# Validasi Real-time
+Validasi Real-time,Real-time,,,,,0.0800,Normal

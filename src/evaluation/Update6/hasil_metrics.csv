@@ -1,0 +1,9 @@
+Metrik,Nilai
+Akurasi,82.63%
+Precision,0.00%
+Recall,0.00%
+F1-Score,0.00%
+ROC-AUC,nan%
+Jumlah Anomali,177
+Persentase Anomali,17.37%
+Kesimpulan,"Model ini menunjukkan performa dengan akurasi 82.63%. Precision 0.00% menunjukkan tingkat ketepatan prediksi positif, sementara recall 0.00% menunjukkan kemampuan model mendeteksi kasus positif. F1-Score 0.00% memberikan keseimbangan antara precision dan recall. ROC-AUC nan% menunjukkan kemampuan model dalam membedakan kelas. Model telah mendeteksi sebanyak 177 anomali (17.37%)."

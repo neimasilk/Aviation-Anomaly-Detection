@@ -1,0 +1,9 @@
+Metrik,Nilai
+Waktu Pemrosesan (Manual),0.004 detik
+Waktu Pemrosesan (LSTM),0.926 detik
+Jumlah Anomali Terdeteksi (Manual),1537
+Jumlah Anomali Terdeteksi (LSTM),177
+Jumlah Anomali Aktual,177
+Persentase Deteksi (Manual),868.36%
+Persentase Deteksi (LSTM),100.00%
+Target Performa,Deteksi 90% anomali dalam < 1 detik

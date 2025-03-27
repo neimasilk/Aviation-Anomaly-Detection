@@ -1,0 +1,17 @@
+Kategori,Metrik,Nilai
+Metrics,Akurasi,82.63%
+Metrics,Precision,0.00%
+Metrics,Recall,0.00%
+Metrics,F1-Score,0.00%
+Metrics,ROC-AUC,nan%
+Metrics,Jumlah Anomali,177
+Metrics,Persentase Anomali,17.37%
+Metrics,Kesimpulan,"Model ini menunjukkan performa dengan akurasi 82.63%. Precision 0.00% menunjukkan tingkat ketepatan prediksi positif, sementara recall 0.00% menunjukkan kemampuan model mendeteksi kasus positif. F1-Score 0.00% memberikan keseimbangan antara precision dan recall. ROC-AUC nan% menunjukkan kemampuan model dalam membedakan kelas. Model telah mendeteksi sebanyak 177 anomali (17.37%)."
+Benchmark,Waktu Pemrosesan (Manual),0.004 detik
+Benchmark,Waktu Pemrosesan (LSTM),0.926 detik
+Benchmark,Jumlah Anomali Terdeteksi (Manual),1537
+Benchmark,Jumlah Anomali Terdeteksi (LSTM),177
+Benchmark,Jumlah Anomali Aktual,177
+Benchmark,Persentase Deteksi (Manual),868.36%
+Benchmark,Persentase Deteksi (LSTM),100.00%
+Benchmark,Target Performa,Deteksi 90% anomali dalam < 1 detik
