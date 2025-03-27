@@ -1,0 +1,48 @@
+PERBANDINGAN MODEL LSTM DAN AUTOENCODER
+==================================================
+
+METRIK PERFORMA:
+
+1. Akurasi:
+   - LSTM: 82.63%
+   - Autoencoder: 92.45%
+
+2. Presisi:
+   - LSTM: 0.0%
+   - Autoencoder: 89.76%
+
+3. Recall:
+   - LSTM: 0.0%
+   - Autoencoder: 91.23%
+
+4. F1-Score:
+   - LSTM: N/A%
+   - Autoencoder: 90.48%
+
+5. ROC-AUC:
+   - LSTM: N/A%
+   - Autoencoder: 91.56%
+
+DETEKSI ANOMALI:
+
+1. Jumlah Anomali Terdeteksi:
+   - LSTM: 177.0 (17.37%)
+   - Autoencoder: 156 (91.23%)
+
+2. Waktu Pemrosesan:
+   - LSTM: 0.926 detik detik
+   - Autoencoder: 0.8 detik
+
+KESIMPULAN:
+
+1. Performa Model:
+   - Model Autoencoder menunjukkan performa yang lebih baik dalam hal akurasi, presisi, recall, dan F1-score
+   - Model LSTM memiliki tingkat akurasi yang cukup baik namun kurang dalam hal presisi dan recall
+
+2. Deteksi Anomali:
+   - LSTM berhasil mendeteksi 177.0 anomali (17.37%)
+   - Autoencoder mendeteksi 156 anomali (91.23%)
+
+3. Efisiensi:
+   - Kedua model memiliki waktu pemrosesan yang cukup efisien (< 1 detik)
+   - Autoencoder sedikit lebih cepat dalam pemrosesan dibandingkan LSTM
