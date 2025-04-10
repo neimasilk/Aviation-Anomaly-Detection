@@ -1,0 +1,109 @@
+Hasil Evaluasi Model One-Class SVM:
+
+1. Akurasi (Accuracy)
+   Nilai: 99.90%
+   Interpretasi: Persentase total prediksi yang benar (normal + anomali)
+   Contoh: Dari 100 prediksi, model benar dalam mengidentifikasi 99 kasus baik normal maupun anomali
+
+2. Presisi (Precision)
+   Nilai: 100.00%
+   Interpretasi: Persentase ketepatan dalam mengidentifikasi anomali 
+   Contoh: Dari 100 kasus yang diprediksi sebagai anomali, 100 adalah benar-benar anomali
+
+3. Recall (Sensitivity)
+   Nilai: 99.01%
+   Interpretasi: Persentase anomali yang berhasil dideteksi
+   Contoh: Dari 100 kasus anomali yang sebenarnya, model berhasil mendeteksi 99 kasus
+
+4. F1-Score
+   Nilai: 99.50%
+   Interpretasi: Rata-rata harmonik dari Precision dan Recall        
+   Menunjukkan keseimbangan antara presisi dan recall
+   Semakin tinggi nilai F1-Score, semakin baik performa model        
+
+5. ROC-AUC
+   Nilai: 99.50%
+   Interpretasi: Kemampuan model membedakan antara kelas normal dan anomali
+   Nilai 1.0 berarti klasifikasi sempurna
+   Nilai 0.5 berarti klasifikasi acak
+   Nilai > 0.8 menunjukkan model memiliki kemampuan diskriminasi yang baik
+
+Metrik evaluasi telah disimpan dalam file evaluation_metrics.csv     
+Generating Comprehensive Report...
+===============================
+
+1. METRICS EVALUATION
+------------------
+            Metrik   Nilai
+        Total Data    1019
+    Jumlah Anomali     100
+Persentase Anomali   9.81%
+          Accuracy  99.90%
+         Precision 100.00%
+            Recall  99.01%
+          F1-Score  99.50%
+           ROC-AUC  99.50%
+
+2. CROSS VALIDATION RESULTS
+-------------------------
+
+Melakukan Validasi Silang (K-Fold Cross Validation):
+Fold 1: Rasio Anomali = 9.80%
+Fold 2: Rasio Anomali = 8.33%
+Fold 3: Rasio Anomali = 11.76%
+Fold 4: Rasio Anomali = 8.33%
+Fold 5: Rasio Anomali = 12.81%
+Rata-rata Rasio Anomali: 10.21%
+Standar Deviasi: 1.81%
+
+3. PERFORMANCE TESTS
+------------------
+
+Melakukan Uji Offline dengan Data Historis:
+Jumlah data yang diuji: 1019
+Rasio anomali terdeteksi: 9.81%
+Waktu pemrosesan total: 0.01 detik
+Rata-rata waktu per data: 0.01 ms
+
+Melakukan Uji Real-Time:
+Rata-rata waktu pemrosesan: 0.20 ms
+Standar deviasi: 0.40 ms
+Waktu pemrosesan minimum: 0.00 ms
+Waktu pemrosesan maksimum: 1.00 ms
+
+4. BENCHMARK RESULTS
+------------------
+Menjalankan Benchmark Model One-Class SVM:
+==========================================
+
+1. Benchmark Akurasi
+------------------
+Target Akurasi: 90%
+Akurasi Model: 99.90%
+Recall (Tingkat Deteksi Anomali): 99.01%
+Status: >= Target
+
+2. Benchmark Kecepatan
+-------------------
+Target Waktu: < 1 detik per prediksi
+Rata-rata Waktu Prediksi: 0.0001 detik
+Status: >= Target
+
+3. Perbandingan dengan Metode Manual
+--------------------------------
+Metode Manual:
+- Waktu pemeriksaan: ~5 detik per data
+- Akurasi: ~70%
+- Konsistensi: Bervariasi antar operator
+
+Metode One-Class SVM:
+- Waktu pemeriksaan: 0.0001 detik per data
+- Akurasi: 99.90%
+- Konsistensi: Konsisten untuk input yang sama
+
+Kesimpulan:
+----------
+- Peningkatan kecepatan: 43316.2x lebih cepat dari manual
+- Peningkatan akurasi: 42.7% lebih akurat dari manual
+- Konsistensi yang lebih tinggi dalam deteksi anomali
+- Dapat memproses data dalam jumlah besar secara otomatis

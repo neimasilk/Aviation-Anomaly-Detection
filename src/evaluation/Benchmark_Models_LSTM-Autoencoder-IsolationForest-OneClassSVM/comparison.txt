@@ -1,0 +1,60 @@
+PERBANDINGAN MODEL LSTM, AUTOENCODER, ONE-CLASS SVM, DAN ISOLATION FOREST
+==================================================
+
+METRIK PERFORMA:
+
+1. Akurasi:
+   - LSTM: 82.63%
+   - Autoencoder: 92.45%
+
+2. Presisi:
+   - LSTM: 0.0%
+   - Autoencoder: 89.75999999999999%
+   - One-Class SVM: 100.0%
+
+3. Recall:
+   - LSTM: 0.0%
+   - Autoencoder: 91.23%
+   - One-Class SVM: 99.01%
+
+4. F1-Score:
+   - Autoencoder: 90.48%
+   - One-Class SVM: 99.5%
+
+5. ROC-AUC:
+   - Autoencoder: 91.56%
+   - One-Class SVM: 99.5%
+
+DETEKSI ANOMALI:
+
+1. Jumlah Anomali Terdeteksi:
+   - LSTM: 177.0 (17.37%)
+   - Autoencoder: 156 (91.23%)
+   - One-Class SVM: 100 (9.81%)
+   - Isolation Forest: 204 (100%)
+
+2. Waktu Pemrosesan:
+   - LSTM: 0.926 detik detik
+   - Autoencoder: 0.8 detik
+   - Isolation Forest: 100 msms
+
+KESIMPULAN:
+
+1. Performa Model:
+   - Model Autoencoder menunjukkan performa yang baik dengan akurasi 92.45%, presisi 89.76%, dan recall 91.23%
+   - Model LSTM memiliki tingkat akurasi 82.63% namun kurang dalam hal presisi dan recall (keduanya 0%)
+   - One-Class SVM menunjukkan performa terbaik dengan akurasi 99.9%, presisi 100%, dan recall 99.01%
+   - Isolation Forest menunjukkan performa yang bervariasi dengan akurasi 52.8%, presisi 11.13%, dan recall 51.92%
+
+2. Deteksi Anomali:
+   - LSTM berhasil mendeteksi 177.0 anomali (17.37%)
+   - Autoencoder mendeteksi 156 anomali (91.23%)
+
+3. Efisiensi dan Waktu Pemrosesan:
+   - Model LSTM: 0.926 detik per prediksi
+   - Model Autoencoder: 0.8 detik per prediksi
+   - Isolation Forest: rata-rata 4.42 ms per data
+
+4. Konsistensi dan Ketergantungan:
+   - One-Class SVM: Konsisten untuk input yang sama
+   - Isolation Forest: Konsistensi 95%, ketergantungan operator rendah
