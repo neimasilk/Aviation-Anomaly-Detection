@@ -1,8 +1,10 @@
-Aspek,Hasil
-Ringkasan = ,Model berhasil mendeteksi 99.0% anomali dengan akurasi 99.9%.
-Akurasi Model = ,99.9%
-Tingkat Deteksi Anomali = ,99.0%
-Waktu Pemeriksaan = ,0.001 detik per data
-Peningkatan Kecepatan = ,5000x lebih cepat dari manual
-Peningkatan Akurasi = ,42.7% lebih baik dari manual
-Konsistensi = ,Konsisten untuk input yang sama
+Aspek,Nilai
+Akurasi Model,99.90%
+Presisi,100.00%
+Recall,99.01%
+F1-Score,99.50%
+ROC-AUC,99.50%
+Waktu Pemrosesan Real-time,~1ms per prediksi
+Peningkatan Kecepatan,5000x lebih cepat dari manual
+Peningkatan Akurasi,42.7% lebih baik dari manual
+Konsistensi,Konsisten untuk input yang sama

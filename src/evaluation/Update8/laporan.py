@@ -3,32 +3,49 @@ import numpy as np
 import matplotlib.pyplot as plt
 from joblib import load
 from sklearn.metrics import accuracy_score, recall_score
+from metrics import accuracy, precision, recall, f1, roc_auc
+from validasi import validasi_silang, uji_offline, uji_real_time
+from benchmark import benchmark_model
 
 def generate_report():
     # Load model dan data
-    model = load('one_class_svm.h5')
-    scaler = load('scaler.h5')
+    print('Generating Comprehensive Report...')
+    print('===============================')
+    
+    # 1. Metrics Evaluation
+    print('\n1. METRICS EVALUATION')
+    print('------------------')
+    metrics_df = pd.DataFrame({
+        'Metrik': ['Accuracy', 'Precision', 'Recall', 'F1-Score', 'ROC-AUC'],
+        'Nilai': [accuracy, precision, recall, f1, roc_auc]
+    })
+    print(metrics_df.to_string(index=False))
+    
+    # 2. Cross Validation Results
+    print('\n2. CROSS VALIDATION RESULTS')
+    print('-------------------------')
     df = pd.read_csv('cleaned_data.csv')
     features = ['START_TIME', 'END_TIME']
+    validasi_silang(df, features)
     
-    # Preprocessing dan prediksi
-    X = df[features]
-    X_scaled = scaler.transform(X)
-    y_pred = model.predict(X_scaled)
-    y_pred = np.where(y_pred == 1, 0, 1)
+    # 3. Performance Tests
+    print('\n3. PERFORMANCE TESTS')
+    print('------------------')
+    model = load('one_class_svm.h5')
+    scaler = load('scaler.h5')
     
-    # Ground truth (10% anomali)
-    y_true = np.zeros(len(y_pred))
-    y_true[np.argsort(model.score_samples(X_scaled))[:int(len(y_pred) * 0.1)]] = 1
+    # Offline Testing
+    uji_offline(model, scaler, df, features)
     
-    # Hitung metrik
-    accuracy = accuracy_score(y_true, y_pred)
-    recall = recall_score(y_true, y_pred)
+    # Real-time Testing
+    uji_real_time(model, scaler, df, features)
     
-    # Buat ringkasan evaluasi
-    summary = f"Model berhasil mendeteksi {recall:.1%} anomali dengan akurasi {accuracy:.1%}."
+    # 4. Benchmark Results
+    print('\n4. BENCHMARK RESULTS')
+    print('------------------')
+    benchmark_model()
     
-    # Data perbandingan metrik
+    # Generate comparison visualization
     metrics_comparison = {
         'Metrik': ['Akurasi', 'Waktu Pemeriksaan (detik)', 'Konsistensi (%)'],
         'Model Lama (Manual)': [0.70, 5.0, 60.0],
@@ -37,8 +54,7 @@ def generate_report():
     
     df_metrics = pd.DataFrame(metrics_comparison)
     
-    # Buat grafik perbandingan
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 6))
     x = np.arange(len(df_metrics['Metrik']))
     width = 0.35
     
@@ -54,32 +70,35 @@ def generate_report():
     plt.tight_layout()
     plt.savefig('perbandingan_model.png')
     
-    # Simpan hasil ke CSV
-    output = pd.DataFrame({
+    # Save comprehensive results
+    comprehensive_results = {
         'Aspek': [
-            'Ringkasan = ',
-            'Akurasi Model = ',
-            'Tingkat Deteksi Anomali = ',
-            'Waktu Pemeriksaan = ',
-            'Peningkatan Kecepatan = ',
-            'Peningkatan Akurasi = ',
-            'Konsistensi = '
+            'Akurasi Model',
+            'Presisi',
+            'Recall',
+            'F1-Score',
+            'ROC-AUC',
+            'Waktu Pemrosesan Real-time',
+            'Peningkatan Kecepatan',
+            'Peningkatan Akurasi',
+            'Konsistensi'
         ],
-        'Hasil': [
-            summary,
-            f'{accuracy:.1%}',
-            f'{recall:.1%}',
-            '0.001 detik per data',
+        'Nilai': [
+            f'{accuracy:.2%}',
+            f'{precision:.2%}',
+            f'{recall:.2%}',
+            f'{f1:.2%}',
+            f'{roc_auc:.2%}',
+            '~1ms per prediksi',
             '5000x lebih cepat dari manual',
             f'{(accuracy-0.7)/0.7*100:.1f}% lebih baik dari manual',
             'Konsisten untuk input yang sama'
         ]
-    })
+    }
     
-    output.to_csv('laporan_result.csv', index=False)
-    print('\nRingkasan Evaluasi:')
-    print(summary)
-    print('\nHasil lengkap telah disimpan dalam file laporan_result.csv')
+    pd.DataFrame(comprehensive_results).to_csv('laporan_result.csv', index=False)
+    print('\nLaporan lengkap telah disimpan dalam file laporan_result.csv')
+    print('Visualisasi perbandingan telah disimpan dalam file perbandingan_model.png')
 
 if __name__ == '__main__':
     generate_report()
