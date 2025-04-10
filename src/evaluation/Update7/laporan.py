@@ -88,15 +88,39 @@ def generate_report():
     model = IsolationForest(**model_params)
     model.fit(X)
     
-    # Generate metrics
-    metrics = generate_metrics(model, X)
+    # Import fungsi-fungsi dari modul lain
+    from metrics import accuracy, precision, recall, f1, roc_auc
+    from validasi import cross_validation, offline_evaluation, realtime_evaluation
+    from benchmark import benchmark_speed, benchmark_accuracy, compare_with_manual
+    
+    # Generate metrics dari metrics.py
+    print("\nMengumpulkan Metrik Evaluasi...")
+    metrics = {
+        'Akurasi': accuracy,
+        'Precision': precision,
+        'Recall': recall,
+        'F1-Score': f1,
+        'ROC-AUC': roc_auc
+    }
+    
+    # Jalankan validasi dari validasi.py
+    print("\nMenjalankan Validasi...")
+    cross_validation(X, model_params)
+    offline_evaluation(X, model_params)
+    realtime_evaluation(X, model_params)
+    
+    # Jalankan benchmark dari benchmark.py
+    print("\nMenjalankan Benchmark...")
+    benchmark_speed(model, X)
+    benchmark_accuracy(model, X)
+    benchmark_results = compare_with_manual()
     
     # Generate plot
     plot_comparison()
     
     # Menyiapkan data untuk CSV
     report_data = {
-        'Laporan': [
+        'Isi Laporan': [
             'LAPORAN EVALUASI MODEL ISOLATION FOREST',
             '====================================',
             '',
@@ -114,7 +138,7 @@ def generate_report():
     }
     
     # Menyimpan ke CSV
-    df = pd.DataFrame(report_data['Laporan'], columns=['Isi Laporan'])
+    df = pd.DataFrame(report_data['Isi Laporan'], columns=['Isi Laporan'])
     df.to_csv('laporan_result.csv', index=False)
     
     # Print report
